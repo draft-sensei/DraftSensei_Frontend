@@ -8,9 +8,9 @@ const HeroCard = ({
   size = "normal",
 }) => {
   const sizeClasses = {
-    small: "w-16 h-20",
-    normal: "w-20 h-24",
-    large: "w-24 h-28",
+    small: "w-20 h-24",
+    normal: "w-24 h-28",
+    large: "w-28 h-32",
   };
 
   const textSizeClasses = {
@@ -20,40 +20,39 @@ const HeroCard = ({
   };
 
   const roleColors = {
-    Tank: "bg-blue-500/20 text-blue-300 border-blue-400/30",
-    Fighter: "bg-red-500/20 text-red-300 border-red-400/30",
-    Assassin: "bg-purple-500/20 text-purple-300 border-purple-400/30",
-    Mage: "bg-indigo-500/20 text-indigo-300 border-indigo-400/30",
-    Marksman: "bg-yellow-500/20 text-yellow-300 border-yellow-400/30",
-    Support: "bg-green-500/20 text-green-300 border-green-400/30",
+    Tank: "bg-blue-500/60 text-blue-100 border-blue-400/30",
+    Fighter: "bg-red-500/60 text-red-100 border-red-400/30",
+    Assassin: "bg-purple-500/60 text-purple-100 border-purple-400/30",
+    Mage: "bg-indigo-500/60 text-indigo-100 border-indigo-400/30",
+    Marksman: "bg-yellow-500/60 text-yellow-100 border-yellow-400/30",
+    Support: "bg-green-500/60 text-green-100 border-green-400/30",
   };
 
   return (
     <div
       className={`
-        ${sizeClasses[size]} cursor-pointer transition-all duration-300 group
-        ${isSelected ? "scale-110 glow-cyan" : ""}
-        ${isDisabled ? "opacity-50 cursor-not-allowed" : "hover:scale-105"}
-      `}
+    ${sizeClasses[size]} cursor-pointer transition-all duration-300 group
+    ${isSelected ? "scale-110 glow-cyan" : ""}
+    ${isDisabled ? "opacity-50 cursor-not-allowed" : "hover:scale-105"}
+  `}
       onClick={() => !isDisabled && onSelect?.(hero)}
     >
       <div className="relative h-full rounded-xl overflow-hidden bg-gray-800/60 backdrop-blur-sm border border-gray-600/30">
         {/* Hero Image */}
-        <div className="h-3/4 bg-linear-to-br from-gray-700 to-gray-800 flex items-center justify-center">
+        <div className="h-3/4 w-full overflow-hidden flex items-start justify-center bg-gradient-to-br from-gray-700 to-gray-800">
           {hero.image ? (
             <img
               src={hero.image}
               alt={hero.name}
-              className="w-full h-full object-cover"
+              className="w-full min-h-[240] object-cover object-top"
               onError={(e) => {
                 e.target.style.display = "none";
-                e.target.nextSibling.style.display = "flex";
+                if (e.target.nextSibling) {
+                  e.target.nextSibling.style.display = "flex";
+                }
               }}
             />
           ) : null}
-          <div className="flex items-center justify-center text-gray-400 text-xs font-medium">
-            {hero.name}
-          </div>
         </div>
 
         {/* Hero Info */}
@@ -69,12 +68,12 @@ const HeroCard = ({
         <div className="absolute top-1 right-1">
           <span
             className={`
-              px-1 py-0.5 rounded text-xs font-medium border
-              ${
-                roleColors[hero.role] ||
-                "bg-gray-500/20 text-gray-300 border-gray-400/30"
-              }
-            `}
+          px-1 py-0.5 rounded text-xs font-medium border
+          ${
+            roleColors[hero.role] ||
+            "bg-gray-500/20 text-gray-300 border-gray-400/30"
+          }
+        `}
           >
             {hero.role?.[0] || "U"}
           </span>
@@ -93,7 +92,7 @@ const HeroCard = ({
         )}
 
         {/* Hover Glow */}
-        <div className="absolute inset-0 rounded-xl bg-linear-to-r from-cyan-400/0 via-violet-400/0 to-emerald-400/0 group-hover:from-cyan-400/20 group-hover:via-violet-400/20 group-hover:to-emerald-400/20 transition-all duration-300 pointer-events-none"></div>
+        <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-cyan-400/0 via-violet-400/0 to-emerald-400/0 group-hover:from-cyan-400/20 group-hover:via-violet-400/20 group-hover:to-emerald-400/20 transition-all duration-300 pointer-events-none"></div>
       </div>
     </div>
   );

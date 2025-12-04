@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = "http://127.0.0.1:8000";
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -14,8 +14,8 @@ const api = axios.create({
 export const heroesAPI = {
   getAllHeroes: async () => {
     try {
-      const response = await api.get("/heroes");
-      return response.data;
+      const response = await api.get("/heroes/list");
+      return response.data.heroes; // Extract the heroes array from the response
     } catch (error) {
       console.error("Error fetching heroes:", error);
       // Return mock data for development
@@ -54,147 +54,152 @@ export const draftAPI = {
   },
 };
 
-// Mock data for development
+// Mock data for development (matching backend structure)
 const mockHeroes = [
   {
     id: 1,
-    name: "Alucard",
-    role: "Fighter",
-    image: "/heroes/alucard.jpg",
-    winRate: 52.5,
+    name: "Lolita",
+    role: "Tank",
+    image:
+      "https://kgapbcqtdpyhonznxwyu.supabase.co/storage/v1/object/public/hero-images/lolita.png",
+    stats: {
+      hp: 2709,
+      mana: 430,
+      attack_damage: 123,
+      physical_defense: 22,
+      magic_defense: 15,
+      movement_speed: 240,
+      attack_speed: 0.85,
+    },
+    counters: {
+      Fanny: 75.0,
+      Gusion: 70.0,
+      Lancelot: 65.0,
+      Ling: 60.0,
+    },
+    synergy: {
+      Yin: 85.0,
+      "Chang'e": 82.0,
+      Hanabi: 75.0,
+      Granger: 77.0,
+    },
+    created_at: "2025-12-04T09:53:42.862194+05:45",
+    updated_at: null,
   },
   {
     id: 2,
-    name: "Miya",
-    role: "Marksman",
-    image: "/heroes/miya.jpg",
-    winRate: 48.3,
+    name: "Khufra",
+    role: "Tank",
+    image:
+      "https://kgapbcqtdpyhonznxwyu.supabase.co/storage/v1/object/public/hero-images/khufra.png",
+    stats: {
+      hp: 2798,
+      mana: 440,
+      attack_damage: 130,
+      physical_defense: 25,
+      magic_defense: 15,
+      movement_speed: 240,
+      attack_speed: 0.9,
+    },
+    counters: {
+      Fanny: 95.0,
+      Gusion: 88.0,
+      Ling: 90.0,
+      Lancelot: 85.0,
+      Hayabusa: 82.0,
+    },
+    synergy: {
+      Yin: 90.0,
+      Franco: 85.0,
+      Hanabi: 82.0,
+      Pharsa: 84.0,
+    },
+    created_at: "2025-12-04T09:53:42.862194+05:45",
+    updated_at: null,
   },
   {
     id: 3,
     name: "Eudora",
     role: "Mage",
-    image: "/heroes/eudora.jpg",
-    winRate: 51.2,
+    image:
+      "https://kgapbcqtdpyhonznxwyu.supabase.co/storage/v1/object/public/hero-images/eudora.png",
+    stats: {
+      hp: 2511,
+      mana: 490,
+      attack_damage: 115,
+      physical_defense: 17,
+      magic_defense: 25,
+      movement_speed: 250,
+      attack_speed: 0.8,
+    },
+    counters: {
+      Hayabusa: 70.0,
+      Fanny: 65.0,
+      Gusion: 68.0,
+    },
+    synergy: {
+      Tigreal: 80.0,
+      Johnson: 75.0,
+      Franco: 72.0,
+    },
+    created_at: "2025-12-04T09:53:42.862194+05:45",
+    updated_at: null,
   },
   {
     id: 4,
-    name: "Tigreal",
-    role: "Tank",
-    image: "/heroes/tigreal.jpg",
-    winRate: 49.8,
+    name: "Fanny",
+    role: "Assassin",
+    image:
+      "https://kgapbcqtdpyhonznxwyu.supabase.co/storage/v1/object/public/hero-images/fanny.png",
+    stats: {
+      hp: 2491,
+      mana: 0,
+      attack_damage: 140,
+      physical_defense: 18,
+      magic_defense: 15,
+      movement_speed: 260,
+      attack_speed: 0.96,
+    },
+    counters: {
+      Miya: 75.0,
+      Layla: 80.0,
+      Eudora: 70.0,
+    },
+    synergy: {
+      Johnson: 85.0,
+      Angela: 80.0,
+      Estes: 75.0,
+    },
+    created_at: "2025-12-04T09:53:42.862194+05:45",
+    updated_at: null,
   },
   {
     id: 5,
-    name: "Fanny",
-    role: "Assassin",
-    image: "/heroes/fanny.jpg",
-    winRate: 45.6,
-  },
-  {
-    id: 6,
-    name: "Rafaela",
-    role: "Support",
-    image: "/heroes/rafaela.jpg",
-    winRate: 53.1,
-  },
-  {
-    id: 7,
-    name: "Layla",
+    name: "Miya",
     role: "Marksman",
-    image: "/heroes/layla.jpg",
-    winRate: 47.9,
-  },
-  {
-    id: 8,
-    name: "Gord",
-    role: "Mage",
-    image: "/heroes/gord.jpg",
-    winRate: 50.4,
-  },
-  {
-    id: 9,
-    name: "Franco",
-    role: "Tank",
-    image: "/heroes/franco.jpg",
-    winRate: 51.7,
-  },
-  {
-    id: 10,
-    name: "Karina",
-    role: "Assassin",
-    image: "/heroes/karina.jpg",
-    winRate: 49.2,
-  },
-  {
-    id: 11,
-    name: "Alice",
-    role: "Mage",
-    image: "/heroes/alice.jpg",
-    winRate: 52.8,
-  },
-  {
-    id: 12,
-    name: "Nana",
-    role: "Mage",
-    image: "/heroes/nana.jpg",
-    winRate: 48.7,
-  },
-  {
-    id: 13,
-    name: "Saber",
-    role: "Assassin",
-    image: "/heroes/saber.jpg",
-    winRate: 50.1,
-  },
-  {
-    id: 14,
-    name: "Minotaur",
-    role: "Tank",
-    image: "/heroes/minotaur.jpg",
-    winRate: 49.5,
-  },
-  {
-    id: 15,
-    name: "Bruno",
-    role: "Marksman",
-    image: "/heroes/bruno.jpg",
-    winRate: 51.3,
-  },
-  {
-    id: 16,
-    name: "Clint",
-    role: "Marksman",
-    image: "/heroes/clint.jpg",
-    winRate: 50.8,
-  },
-  {
-    id: 17,
-    name: "Zilong",
-    role: "Fighter",
-    image: "/heroes/zilong.jpg",
-    winRate: 48.9,
-  },
-  {
-    id: 18,
-    name: "Bane",
-    role: "Fighter",
-    image: "/heroes/bane.jpg",
-    winRate: 47.6,
-  },
-  {
-    id: 19,
-    name: "Cyclops",
-    role: "Mage",
-    image: "/heroes/cyclops.jpg",
-    winRate: 52.4,
-  },
-  {
-    id: 20,
-    name: "Freya",
-    role: "Fighter",
-    image: "/heroes/freya.jpg",
-    winRate: 49.7,
+    image:
+      "https://kgapbcqtdpyhonznxwyu.supabase.co/storage/v1/object/public/hero-images/miya.png",
+    stats: {
+      hp: 2541,
+      mana: 430,
+      attack_damage: 125,
+      physical_defense: 16,
+      magic_defense: 15,
+      movement_speed: 250,
+      attack_speed: 0.95,
+    },
+    counters: {
+      Gusion: 65.0,
+      Lancelot: 70.0,
+      Hayabusa: 68.0,
+    },
+    synergy: {
+      Tigreal: 82.0,
+      Lolita: 78.0,
+      Minotaur: 75.0,
+    },
+    created_at: "2025-12-04T09:53:42.862194+05:45",
+    updated_at: null,
   },
 ];
 
@@ -207,18 +212,18 @@ const mockSuggestions = [
     reason: "High burst damage complements team composition",
   },
   {
-    id: 11,
-    name: "Alice",
-    role: "Mage",
+    id: 1,
+    name: "Lolita",
+    role: "Tank",
     confidence: 0.78,
     reason: "Good synergy with current picks and counters enemy",
   },
   {
-    id: 19,
-    name: "Cyclops",
-    role: "Mage",
+    id: 4,
+    name: "Fanny",
+    role: "Assassin",
     confidence: 0.72,
-    reason: "Safe pick with consistent damage output",
+    reason: "High mobility assassin for quick eliminations",
   },
 ];
 
